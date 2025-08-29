@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app1-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app1-frontend
+  template:
+    metadata:
+      labels:
+        app: app1-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: {{ .Values.image.frontend }} # Set this to your built image, e.g. "yourrepo/app1-frontend:tag"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 300m
+              memory: 256Mi

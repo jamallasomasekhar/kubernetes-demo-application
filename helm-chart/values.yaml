@@ -1,0 +1,27 @@
+image:
+  backend: jamallasomasekhar/demo-backend:latest
+  frontend: jamallasomasekhar/demo-frontend:latest  # used by Job to build from host src
+postgres:
+  storage: 1Gi
+  resources:
+    requests:
+      cpu: 50m
+      memory: 256Mi
+    limits:
+      cpu: 300m
+      memory: 512Mi
+backend:
+  replicas: 1
+  resources:
+    requests:
+      cpu: 30m
+      memory: 96Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+ingress:
+  host: localhost
+  wwwHostPath: /var/www/html    # must match the hostPath mounted into ingress controller
+frontend:
+  hostSourcePath: /srv/app1-src  # on k3s host: the React source to build (Job will read this)
+  targetFolder: app1             # final folder under /var/www/html (e.g. /var/www/html/app1)
